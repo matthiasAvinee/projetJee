@@ -1,8 +1,10 @@
 package projetJee.web.controller;
 
 
+import ProjetJee.core.entity.Cat;
 import ProjetJee.core.entity.Post;
 import ProjetJee.core.entity.User;
+import ProjetJee.core.service.CatService;
 import ProjetJee.core.service.PostService;
 import ProjetJee.core.service.UserService;
 import javafx.geometry.Pos;
@@ -11,10 +13,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.inject.Inject;
+import java.util.List;
 
 @Controller
 public class KittenController {
@@ -25,10 +29,13 @@ public class KittenController {
     private UserService userService;
     @Inject
     private PostService postService;
+    @Inject
+    private CatService catService;
 
-    @RequestMapping(value = "/home")
-    public String getAllKitties() {
-
+    @RequestMapping(value = "/home",method = RequestMethod.GET)
+    public String getAllKitties(ModelMap model) {
+        final List<Post> allPost=postService.findAll();
+        model.addAttribute("posts",allPost);
         return "home";
     }
 
@@ -62,4 +69,17 @@ public class KittenController {
         return "redirect:home";
     }
 
+    @RequestMapping(value="/{id}/choisirUnChat",method = RequestMethod.GET)
+    public String chooseCat(ModelMap model,@PathVariable("id")long id) {
+        //final List<Cat> allUserCat=catService.findByUser(findUserById(id);
+        // model.addAttribute("userCats",allUserCat);
+        return "choisirUnChat";
+    }
+
+    @RequestMapping(value = "/{id}/choisirUnChat", method = RequestMethod.POST)
+    public String addCat(@ModelAttribute("newCat") Cat cat) {
+        //catService.saveCat(cat);
+        // long id=cat.getId();
+        return "redirect:/ajoutPost";
+    }
 }
