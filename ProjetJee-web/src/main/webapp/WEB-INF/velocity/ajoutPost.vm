@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="css/myCss.css">
     <link rel="stylesheet" href="css/dropzone.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/dropzone.js"></script>
@@ -74,34 +74,36 @@
     </div>
     <div class="card-body">
         <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="titre">Titre : </label>
-                    <input type="text" class="form-control" id="titre" aria-describedby="titre" placeholder="Titre">
-                    <small id="emailHelp" class="form-text text-muted">Entrez un titre chat.. euh chouette ! </small>
-                </div>
-                <label for="editor">Description : </label>
-                <div class="editorContent">
-                    <div id="editor">
+            <form action="ajouterPost" method="POST">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="titre">Titre : </label>
+                        <input type="text" class="form-control" id="titre" aria-describedby="titre" placeholder="Titre">
+                        <small id="emailHelp" class="form-text text-muted">Entrez un titre chat.. euh chouette ! </small>
+                    </div>
+                    <label for="editor">Description : </label>
+                    <div class="editorContent">
+                        <div id="editor">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="row">
-                    <label for="tag">Tags : </label>
-                    <select id="tag" name="tag[]" multiple="multiple">
-                        <option value="1">cute</option>
-                        <option value="2">luuuv</option>
-                        <option value="3">kawaiii</option>
-                        <option value="4">cutty</option>
-                    </select>
-                </div>
-                <div class="row">
-                    <div class="dropzone" id="myDropzone"></div>
-                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <label for="tag">Tags : </label>
+                        <select id="tag" name="tag[]" multiple="multiple">
+                            <option value="1">cute</option>
+                            <option value="2">luuuv</option>
+                            <option value="3">kawaiii</option>
+                            <option value="4">cutty</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="dropzone" id="myDropzone"></div>
+                    </div>
 
-                <button type="submit" id="validate" class="btn btn-success">Valider</button>
-            </div>
+                    <button type="submit" id="validate" class="btn btn-success">Valider</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
