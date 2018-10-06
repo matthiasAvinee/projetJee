@@ -17,6 +17,9 @@ public class User {
     private String password;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Post> posts;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Cat> cats;
 
     @ManyToMany(cascade = {CascadeType.ALL})

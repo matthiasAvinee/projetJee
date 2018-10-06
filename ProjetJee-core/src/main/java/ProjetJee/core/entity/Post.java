@@ -18,7 +18,11 @@ public class Post {
 
     private String path;
 
+
     @ManyToOne
     private Cat cat;
+
+    @ManyToOne
+    private User user;
 
 }

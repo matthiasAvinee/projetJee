@@ -29,4 +29,6 @@ public class PostServiceImpl implements PostService {
     public List<Post> findByUser(User user) {
         return postDAO.findByUser(user);
     }
+
+    public void savePost(Post post) {  postDAO.save(post); }
 }

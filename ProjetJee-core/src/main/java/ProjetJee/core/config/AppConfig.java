@@ -14,7 +14,11 @@ public class AppConfig {
     @Bean
     public Properties dbProperties() throws IOException {
         Properties props = new Properties();
-        props.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("db.properties"));
+       // props.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("db.properties"));
+        props.setProperty("driverClass", "com.mysql.jdbc.Driver");
+        props.setProperty("jdbcUrl", "jdbc:mysql://localhost:3306/projet_JEE");
+        props.setProperty("username", "root");
+        props.setProperty("password", "root");
         return props;
     }
 }

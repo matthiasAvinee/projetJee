@@ -14,4 +14,6 @@ public interface PostService {
 
     List<Post> findByUser(User user);
 
+    void savePost(Post post);
+
 }

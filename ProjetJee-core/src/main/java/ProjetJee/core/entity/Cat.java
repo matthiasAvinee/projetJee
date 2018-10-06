@@ -18,8 +18,8 @@ public class Cat {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cat")
     private List<Post> posts;
 
-    @ManyToMany(mappedBy = "cat")
-    private List<User> usersFans;
+   // @ManyToMany(mappedBy = "cat")
+   // private List<User> usersFans;
 
     public Cat() {
     }
@@ -56,11 +56,11 @@ public class Cat {
         this.posts = posts;
     }
 
-    public List<User> getUsersFans() {
-        return usersFans;
-    }
+   // public List<User> getUsersFans() {
+   //     return usersFans;
+    //}
 
-    public void setUsersFans(List<User> usersFans) {
-        this.usersFans = usersFans;
-    }
+    //public void setUsersFans(List<User> usersFans) {
+    //    this.usersFans = usersFans;
+    //}
 }

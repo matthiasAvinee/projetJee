@@ -1,11 +1,13 @@
 package projetJee.web;
 
+import ProjetJee.core.config.AppConfig;
+import ProjetJee.core.config.DBConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 import projetJee.web.config.WebConfig;
 
 public class Initializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[0];
+        return new Class[]{ AppConfig.class, DBConfig.class};
     }
 
     @Override
