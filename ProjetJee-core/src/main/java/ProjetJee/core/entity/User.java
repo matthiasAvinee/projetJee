@@ -12,6 +12,7 @@ public class User {
 
     private String email;
 
+    @Column(unique = true)
     private String pseudo;
 
     private String password;
