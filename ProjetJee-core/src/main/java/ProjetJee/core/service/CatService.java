@@ -9,4 +9,6 @@ public interface CatService {
 
     List<Cat> findByUser(User user);
 
+    void saveCat(Cat cat);
+
 }

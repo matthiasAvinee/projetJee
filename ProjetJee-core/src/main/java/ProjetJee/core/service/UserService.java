@@ -10,4 +10,6 @@ public interface UserService {
 
     List<User> findByPseudo(String pseudo);
 
+    User findById (long id);
+
 }

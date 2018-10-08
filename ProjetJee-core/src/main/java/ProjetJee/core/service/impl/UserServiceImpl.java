@@ -23,4 +23,8 @@ public class UserServiceImpl implements UserService {
     public List<User> findByPseudo(String pseudo) {
         return userDAO.findByPseudo(pseudo);
     }
+
+    public User findById(long id) {
+        return userDAO.findById(id);
+    }
 }

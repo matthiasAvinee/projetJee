@@ -20,4 +20,8 @@ public class CatServiceImpl implements CatService {
     public List<Cat> findByUser(User user) {
         return catDAO.findByUser(user);
     }
+
+    public void saveCat(Cat cat) {
+        catDAO.save(cat);
+    }
 }
