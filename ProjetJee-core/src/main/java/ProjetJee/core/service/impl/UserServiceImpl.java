@@ -33,6 +33,10 @@ public class UserServiceImpl implements UserService {
         return userDAO.findById(id);
     }
 
+    public User findByEmail(String email) {
+        return userDAO.findByEmail(email);
+    }
+
     public boolean checkPasseword(String nomUser, String passewordAttempt)
     {
        // CryptageMdp cryptageMdp= new CryptageMdp();
