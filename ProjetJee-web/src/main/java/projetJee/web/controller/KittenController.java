@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -67,22 +68,23 @@ public class KittenController {
     }
 
     @RequestMapping(value = "/creationCompte", method = RequestMethod.POST)
-    public String addUser(@ModelAttribute("user")User user) {
+    public String addUser(@ModelAttribute("user")User user, HttpServletRequest rq) {
         userService.saveUser(user);
-        return "redirect:home";
+        rq.getSession().setAttribute("userConnecte",user.getPseudo());
+        return "redirect:/user/home";
     }
 
     @RequestMapping(value="/user/{id}/choisirUnChat",method = RequestMethod.GET)
-    public String chooseCat(ModelMap model,@PathVariable("id")long id) {
-        //final List<Cat> allUserCat=catService.findByUser(findUserById(id);
-        // model.addAttribute("userCats",allUserCat);
+    public String chooseCat(ModelMap model, @PathVariable("id")long id) {
+        final List<Cat> allUserCat=catService.findByUser(userService.findById(id));
+        model.addAttribute("userCats",allUserCat);
         return "choisirUnChat";
     }
 
     @RequestMapping(value = "/user/{id}/choisirUnChat", method = RequestMethod.POST)
     public String addCat(@ModelAttribute("newCat") Cat cat) {
-        //catService.saveCat(cat);
-        // long id=cat.getId();
+        catService.saveCat(cat);
+        long id=cat.getId();
         return "redirect:ajoutPost";
     }
 }
