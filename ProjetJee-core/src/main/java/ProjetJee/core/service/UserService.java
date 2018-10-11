@@ -14,4 +14,6 @@ public interface UserService {
 
     User findByEmail (String email);
 
+    public boolean checkPasseword(String email, String passewordAttempt);
+
 }

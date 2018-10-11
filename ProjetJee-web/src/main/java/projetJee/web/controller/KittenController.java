@@ -43,10 +43,27 @@ public class KittenController {
         return "home";
     }
 
-    @RequestMapping(value = "/")
-    public String getListUserAutorised() {
+    @RequestMapping(value = "/deconnexion",method = RequestMethod.GET)
+    public String deconnexion(HttpServletRequest rq) {
+        rq.getSession().removeAttribute("userConnecte");
+        return "redirect:/";
+    }
 
+    @RequestMapping(value = "/",method = RequestMethod.GET)
+    public String showConnexion(ModelMap model) {
+        model.addAttribute("user", new User());
         return "connexion";
+    }
+
+    @RequestMapping(value = "/",method = RequestMethod.POST)
+    public String connect(@ModelAttribute("user")User user, HttpServletRequest rq) {
+        User usertoTest= userService.findByEmail(user.getEmail());
+        if(userService.checkPasseword(usertoTest.getEmail(),user.getPassword()))
+        {
+            rq.getSession().setAttribute("userConnecte",user.getPseudo());
+        }
+
+        return "redirect:/user/home";
     }
 
     @RequestMapping(value = "/user/ajouterPost", method = RequestMethod.GET)

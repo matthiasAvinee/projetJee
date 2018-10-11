@@ -46,7 +46,7 @@
                     <img class="icons" src="img/cat.png"> Mon Compte
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" >
-                    <a class="dropdown-item" href="#"><img class="icons" src="img/kitty.png"> Déconnexion</a>
+                    <a class="dropdown-item" href="/deconnexion"><img class="icons" src="img/kitty.png"> Déconnexion</a>
                     <a class="dropdown-item" href="#"><img class="icons" src="img/first-aid-kit.png"> Paramètres</a>
                 </div>
             </li>

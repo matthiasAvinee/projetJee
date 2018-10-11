@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="wrap-input100 validate-input m-b-16" data-validate="Entrez un mail du type abc@wxy.zz">
-                    <input class="input100" type="text" name="email" placeholder="Email">
+                    #springFormInput("user.email" "class='input100' id='email' type='email' placeholder='Email'")
                     <span class="focus-input100"></span>
                 </div>
 
@@ -39,7 +39,7 @@
 						<span class="btn-show-pass">
 							<i class="fa fa fa-eye"></i>
 						</span>
-                    <input class="input100" type="password" name="pass" placeholder="Mot de Passe">
+                    #springFormInput("user.password" "class='input100' id='password' type='text' placeholder='Mot de Passe'")
                     <span class="focus-input100"></span>
                 </div>
 

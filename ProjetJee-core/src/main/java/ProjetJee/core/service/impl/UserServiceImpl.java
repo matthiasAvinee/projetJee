@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
 
-import static ProjetJee.core.security.CryptageMdp.validerMotDePasse;
 
 
 @Named
@@ -27,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
     public List<User> findByPseudo(String pseudo) {
         return userDAO.findByPseudo(pseudo);
-    } //faire return User
+    }
 
     public User findById(long id) {
         return userDAO.findById(id);
@@ -37,11 +36,11 @@ public class UserServiceImpl implements UserService {
         return userDAO.findByEmail(email);
     }
 
-    public boolean checkPasseword(String nomUser, String passewordAttempt)
+    public boolean checkPasseword(String email, String passewordAttempt)
     {
-       // CryptageMdp cryptageMdp= new CryptageMdp();
-       // User userToTry = this.findByPseudo(nomUser);
-       // return validerMotDePasse(passewordAttempt,userToTry.getPassword());
-        return true;
+       CryptageMdp cryptageMdp= new CryptageMdp();
+       User userToTry = this.findByEmail(email);
+       return cryptageMdp.validerMotDePasse(passewordAttempt,userToTry.getPassword());
+
     }
 }
