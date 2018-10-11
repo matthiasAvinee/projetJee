@@ -8,6 +8,7 @@ import ProjetJee.core.service.CatService;
 import ProjetJee.core.service.PostService;
 import ProjetJee.core.service.UserService;
 import javafx.geometry.Pos;
+import org.hibernate.annotations.Filter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -32,7 +33,9 @@ public class KittenController {
     @Inject
     private CatService catService;
 
-    @RequestMapping(value = "/home",method = RequestMethod.GET)
+
+
+    @RequestMapping(value = "/user/home",method = RequestMethod.GET)
     public String getAllKitties(ModelMap model) {
         final List<Post> allPost=postService.findAll();
         model.addAttribute("posts",allPost);
@@ -45,13 +48,13 @@ public class KittenController {
         return "connexion";
     }
 
-    @RequestMapping(value = "/ajouterPost", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/ajouterPost", method = RequestMethod.GET)
     public String showAddPost(ModelMap model) {
         model.addAttribute("post", new Post());
         return "ajoutPost";
     }
 
-    @RequestMapping(value = "/ajouterPost", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/ajouterPost", method = RequestMethod.POST)
     public String addPost(@ModelAttribute("post")Post post) {
         postService.savePost(post);
         return "redirect:home";
@@ -69,17 +72,17 @@ public class KittenController {
         return "redirect:home";
     }
 
-    @RequestMapping(value="/{id}/choisirUnChat",method = RequestMethod.GET)
+    @RequestMapping(value="/user/{id}/choisirUnChat",method = RequestMethod.GET)
     public String chooseCat(ModelMap model,@PathVariable("id")long id) {
         //final List<Cat> allUserCat=catService.findByUser(findUserById(id);
         // model.addAttribute("userCats",allUserCat);
         return "choisirUnChat";
     }
 
-    @RequestMapping(value = "/{id}/choisirUnChat", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/{id}/choisirUnChat", method = RequestMethod.POST)
     public String addCat(@ModelAttribute("newCat") Cat cat) {
         //catService.saveCat(cat);
         // long id=cat.getId();
-        return "redirect:/ajoutPost";
+        return "redirect:ajoutPost";
     }
 }
