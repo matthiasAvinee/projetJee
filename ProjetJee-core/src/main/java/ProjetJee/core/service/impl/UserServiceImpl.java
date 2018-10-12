@@ -39,8 +39,16 @@ public class UserServiceImpl implements UserService {
     public boolean checkPasseword(String email, String passewordAttempt)
     {
        CryptageMdp cryptageMdp= new CryptageMdp();
-       User userToTry = this.findByEmail(email);
-       return cryptageMdp.validerMotDePasse(passewordAttempt,userToTry.getPassword());
+       try
+       {
+           User userToTry = this.findByEmail(email);
+           return cryptageMdp.validerMotDePasse(passewordAttempt,userToTry.getPassword());
+       }
+       catch (NullPointerException e)
+       {
+           return false;
+       }
+
 
     }
 }

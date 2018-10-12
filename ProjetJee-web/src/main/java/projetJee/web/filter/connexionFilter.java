@@ -19,12 +19,10 @@ public class connexionFilter implements Filter {
         String identifiant = (String) httpRequest.getSession().getAttribute("userConnecte");
         HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
 
-        if(identifiant == null || "".equals(identifiant)) {
+        if (identifiant == null || "".equals(identifiant)) {
 
-            httpResponse.sendRedirect("../");
-            return;
-
-        }else
+            httpResponse.sendRedirect("../connexion");
+        } else
 
             filterChain.doFilter(servletRequest, servletResponse);
     }
