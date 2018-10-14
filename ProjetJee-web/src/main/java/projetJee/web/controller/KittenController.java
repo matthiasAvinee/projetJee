@@ -109,15 +109,18 @@ public class KittenController {
     @RequestMapping(value = "/user/{id}/choisirUnChat", method = RequestMethod.GET)
     public String chooseCat(ModelMap model, @PathVariable("id") long id) {
         final List<Cat> allUserCat = catService.findByUser(userService.findById(id));
+        Cat cat = new Cat();
+        model.addAttribute("newCat", cat);
         model.addAttribute("userCats", allUserCat);
+        model.addAttribute("user", userService.findById(id));
         httpServletResponse.setHeader("Content-type","text/html;charset=UTF-8");
         return "chooseCat";
     }
 
     @RequestMapping(value = "/user/{id}/choisirUnChat", method = RequestMethod.POST)
-    public String addCat(@ModelAttribute("newCat") Cat cat) {
+    public String addCat(@ModelAttribute("newCat") Cat cat, @PathVariable("id") long id) {
+        cat.setUser(userService.findById(id));
         catService.saveCat(cat);
-        long id = cat.getId();
-        return "redirect:ajoutPost";
+        return "redirect:/user/"+id+"/choisirUnChat";
     }
 }

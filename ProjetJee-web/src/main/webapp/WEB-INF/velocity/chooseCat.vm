@@ -63,11 +63,11 @@
 <img class="ligne" src="/img/frise.png">
 
 <div class="card-columns">
-    #foreach($cat in $cats)
+    #foreach($cat in $userCats)
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">$cat.name</h5>
-                <button href="$cat.id/ajouterPost">Choose</button>
+                <button href="$cat.id/ajouterPost" class="btn">Choose</button>
             </div>
         </div>
     #end
@@ -79,7 +79,7 @@
                     <label for="nom">Nom</label>
                     #springFormInput("newCat.name" "class='form-control' id='nom' placeholder='Nom'")
                 </div>
-                <button type="submit" class="btn btn-success">Créer</button>
+                <button type="submit" class="btn btn-success">Ajouter un chat</button>
             </form>
         </div>
     </div>
