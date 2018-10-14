@@ -53,11 +53,11 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><img class="icons" src="img/dices.png"> Chat alÃ©atoire</a>
+                <a class="nav-link" href="#"><img class="icons" src="img/dices.png"> Chat aléatoire</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><img class="icons" src="img/star.png"> Mes Chats prÃ©fÃ©rÃ©s</a>
+                <a class="nav-link" href="#"><img class="icons" src="img/star.png"> Mes Chats préférés</a>
             </li>
 
             <li class="nav-item dropdown">
@@ -66,8 +66,8 @@
                     <img class="icons" src="img/cat.png"> Mon Compte
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/deconnexion"><img class="icons" src="img/kitty.png"> DÃ©connexion</a>
-                    <a class="dropdown-item" href="#"><img class="icons" src="img/first-aid-kit.png"> ParamÃ¨tres</a>
+                    <a class="dropdown-item" href="/deconnexion"><img class="icons" src="img/kitty.png"> Déconnexion</a>
+                    <a class="dropdown-item" href="#"><img class="icons" src="img/first-aid-kit.png"> Paramètres</a>
                 </div>
             </li>
 

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
@@ -33,14 +34,17 @@ public class KittenController {
     private PostService postService;
     @Inject
     private CatService catService;
+    @Inject
+    private HttpServletResponse httpServletResponse;
 
 
     @RequestMapping(value = "/user/home", method = RequestMethod.GET)
     public String getAllKitties(ModelMap model, HttpServletRequest rq) {
         final List<Post> allPost = postService.findAll();
-        String pseudo = rq.getSession().getAttribute("userConnecte").toString();
-        model.addAttribute("user", userService.findByPseudo(pseudo));
+        String email = rq.getSession().getAttribute("userConnecte").toString();
+        model.addAttribute("user", userService.findByEmail(email));
         model.addAttribute("posts", allPost);
+        httpServletResponse.setHeader("Content-type","text/html;charset=UTF-8");
         return "home";
     }
 
@@ -53,6 +57,7 @@ public class KittenController {
     @RequestMapping(value = "/connexion", method = RequestMethod.GET)
     public String showConnexion(ModelMap model) {
         model.addAttribute("user", new User());
+        httpServletResponse.setHeader("Content-type","text/html;charset=UTF-8");
         return "connexion";
     }
 
@@ -61,18 +66,23 @@ public class KittenController {
         if (userService.checkPasseword(user.getEmail(), user.getPassword())) {
             LOGGER.info("connexion success");
             User userConnected = userService.findByEmail(user.getEmail());
-            rq.getSession().setAttribute("userConnecte", userConnected.getPseudo());
+            rq.getSession().setAttribute("userConnecte", userConnected.getEmail());
             return "redirect:/user/home";
         } else {
             LOGGER.info("connexion failed");
             return "redirect:connexion";
         }
+    }
 
+    @RequestMapping(value = "/")
+    public String redirectConnexion () {
+        return "redirect:connexion";
     }
 
     @RequestMapping(value = "/user/ajouterPost", method = RequestMethod.GET)
     public String showAddPost(ModelMap model) {
         model.addAttribute("post", new Post());
+        httpServletResponse.setHeader("Content-type","text/html;charset=UTF-8");
         return "ajoutPost";
     }
 
@@ -85,6 +95,7 @@ public class KittenController {
     @RequestMapping(value = "/creationCompte", method = RequestMethod.GET)
     public String showCreation(ModelMap model) {
         model.addAttribute("user", new User());
+        httpServletResponse.setHeader("Content-type","text/html;charset=UTF-8");
         return "creerUnCompte";
     }
 
@@ -99,7 +110,8 @@ public class KittenController {
     public String chooseCat(ModelMap model, @PathVariable("id") long id) {
         final List<Cat> allUserCat = catService.findByUser(userService.findById(id));
         model.addAttribute("userCats", allUserCat);
-        return "choisirUnChat";
+        httpServletResponse.setHeader("Content-type","text/html;charset=UTF-8");
+        return "chooseCat";
     }
 
     @RequestMapping(value = "/user/{id}/choisirUnChat", method = RequestMethod.POST)

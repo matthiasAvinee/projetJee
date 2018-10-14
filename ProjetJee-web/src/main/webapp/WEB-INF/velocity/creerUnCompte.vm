@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>KittyRoulette - CrÃ©ation de compte</title>
+    <title>KittyRoulette - Création de compte</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,7 +37,7 @@
 
                 <div class="text-center p-t-55 p-b-30">
 						<span class="txt1">
-							CrÃ©ez un compte
+							Créez un compte
 						</span>
                 </div>
 
@@ -62,7 +62,7 @@
 
                 <div class="container-login100-form-btn">
                     <button class="login100-form-btn" type="submit">
-                        CrÃ©er
+                        Créer
                     </button>
                 </div>
 
