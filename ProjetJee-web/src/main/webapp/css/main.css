@@ -150,6 +150,8 @@ iframe {
     font-size: 20px;
     color: #333333;
     line-height: 1.2;
+    padding: 80px;
+
 }
 
 .txt2 {
@@ -206,6 +208,11 @@ iframe {
     padding: 15px;
     position: relative;
     background-image: linear-gradient(#fbf2b2, #f8aabf);
+}
+
+#email{
+
+    margin-top: 50px;
 }
 
 .wrap-login100 {
@@ -272,6 +279,7 @@ iframe {
     border-radius: 31px;
     position: relative;
     z-index: 1;
+    margin-bottom: 20px;
 }
 
 .input100 {
@@ -362,6 +370,8 @@ iframe {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    margin-top: 15px;
+    margin-top: 15px;
 }
 
 .login100-form-btn {
@@ -500,3 +510,4 @@ iframe {
         padding-top: 20px
     }
 }
+

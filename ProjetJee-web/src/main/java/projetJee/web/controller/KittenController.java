@@ -102,7 +102,7 @@ public class KittenController {
     @RequestMapping(value = "/creationCompte", method = RequestMethod.POST)
     public String addUser(@ModelAttribute("user") User user, HttpServletRequest rq) {
         userService.saveUser(user);
-        rq.getSession().setAttribute("userConnecte", user.getPseudo());
+        rq.getSession().setAttribute("userConnecte", user.getEmail());
         return "redirect:/user/home";
     }
 
