@@ -20,6 +20,11 @@
 <body>
 
 <div class="limiter">
+    #if($erreur=='erreur')
+        <div class="alert alert alert-danger">
+            <strong>Erreur !</strong> Une erreur est survenue lors de l'authentification
+        </div>
+    #end
     <div class="container-login100">
         <div class="wrap-login100 p-t-90 p-b-30">
             <form class="login100-form validate-form" action="connexion" method="POST">
@@ -35,12 +40,11 @@
                     <span class="focus-input100"></span>
                 </div>
 
-                <div class="wrap-input100 validate-input m-b-20" data-validate="Veuillez entrer un mot de passe">
+                <div class="wrap-input100 validate-input m-b-20" data-validate = "Please enter password">
 						<span class="btn-show-pass">
 							<i class="fa fa fa-eye"></i>
 						</span>
-                    #springFormInput(
-                        "user.password" "class='input100' id='password' type='text' placeholder='Mot de Passe'")
+                    #springFormPasswordInput("user.password" "class='input100' name='pass' placeholder='Mot de Passe'")
                     <span class="focus-input100"></span>
                 </div>
 

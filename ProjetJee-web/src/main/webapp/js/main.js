@@ -34,6 +34,7 @@
         }
         else {
             if($(input).val().trim() == ''){
+                $(input).attr('type') == 'email'
                 return false;
             }
         }

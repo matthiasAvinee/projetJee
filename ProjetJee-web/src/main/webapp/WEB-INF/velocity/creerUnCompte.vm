@@ -31,6 +31,11 @@
 <body>
 
 <div class="limiter">
+    #if($erreur=='erreur')
+        <div class="alert alert-danger">
+            <strong>Erreur !</strong> L'email est déjà utilisé par quelqu'un d'autre
+        </div>
+    #end
     <div class="container-login100">
         <div class="wrap-login100 p-t-90 p-b-30">
             <form class="login100-form validate-form" action="creationCompte" method="POST">
@@ -56,7 +61,7 @@
 						<span class="btn-show-pass">
 							<i class="fa fa fa-eye"></i>
 						</span>
-                    #springFormInput("user.password" "class='input100' id='password' type='text' placeholder='Mot de Passe'")
+                    #springFormPasswordInput("user.password" "class='input100' id='password' placeholder='Mot de Passe'")
                     <span class="focus-input100"></span>
                 </div>
 

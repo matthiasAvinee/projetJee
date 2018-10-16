@@ -192,6 +192,7 @@ iframe {
 .limiter {
     width: 100%;
     margin: 0 auto;
+    background-image: linear-gradient(#fbf2b2, #f8aabf);
 }
 
 .container-login100 {
@@ -207,7 +208,6 @@ iframe {
     align-items: center;
     padding: 15px;
     position: relative;
-    background-image: linear-gradient(#fbf2b2, #f8aabf);
 }
 
 #email{

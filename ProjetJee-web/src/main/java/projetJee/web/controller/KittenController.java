@@ -42,6 +42,8 @@ public class KittenController {
     public String getAllKitties(ModelMap model, HttpServletRequest rq) {
         final List<Post> allPost = postService.findAll();
         String email = rq.getSession().getAttribute("userConnecte").toString();
+        rq.getSession().removeAttribute("erreurConnexion");
+        rq.getSession().removeAttribute("erreurCreation");
         model.addAttribute("user", userService.findByEmail(email));
         model.addAttribute("posts", allPost);
         httpServletResponse.setHeader("Content-type","text/html;charset=UTF-8");
@@ -55,8 +57,9 @@ public class KittenController {
     }
 
     @RequestMapping(value = "/connexion", method = RequestMethod.GET)
-    public String showConnexion(ModelMap model) {
+    public String showConnexion(ModelMap model, HttpServletRequest rq) {
         model.addAttribute("user", new User());
+        model.addAttribute("erreur",rq.getSession().getAttribute("erreurConnexion"));
         httpServletResponse.setHeader("Content-type","text/html;charset=UTF-8");
         return "connexion";
     }
@@ -70,6 +73,7 @@ public class KittenController {
             return "redirect:/user/home";
         } else {
             LOGGER.info("connexion failed");
+            rq.getSession().setAttribute("erreurConnexion","erreur");
             return "redirect:connexion";
         }
     }
@@ -93,17 +97,28 @@ public class KittenController {
     }
 
     @RequestMapping(value = "/creationCompte", method = RequestMethod.GET)
-    public String showCreation(ModelMap model) {
+    public String showCreation(ModelMap model,HttpServletRequest rq) {
         model.addAttribute("user", new User());
+        model.addAttribute("erreur",rq.getSession().getAttribute("erreurCreation"));
         httpServletResponse.setHeader("Content-type","text/html;charset=UTF-8");
         return "creerUnCompte";
     }
 
     @RequestMapping(value = "/creationCompte", method = RequestMethod.POST)
-    public String addUser(@ModelAttribute("user") User user, HttpServletRequest rq) {
-        userService.saveUser(user);
-        rq.getSession().setAttribute("userConnecte", user.getEmail());
-        return "redirect:/user/home";
+    public String addUser(@ModelAttribute("user") User user, HttpServletRequest rq,ModelMap model) {
+        try
+        {
+            userService.saveUser(user);
+            rq.getSession().setAttribute("userConnecte", user.getEmail());
+            return "redirect:/user/home";
+        }
+        catch (javax.persistence.NonUniqueResultException e)
+        {
+            rq.getSession().setAttribute("erreurCreation","erreur");
+            return "redirect:/creationCompte";
+        }
+
+
     }
 
     @RequestMapping(value = "/user/{id}/choisirUnChat", method = RequestMethod.GET)
