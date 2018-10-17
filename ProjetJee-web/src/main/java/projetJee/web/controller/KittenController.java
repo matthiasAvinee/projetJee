@@ -43,6 +43,7 @@ public class KittenController {
         String email = rq.getSession().getAttribute("userConnecte").toString();
         rq.getSession().removeAttribute("erreurConnexion");
         rq.getSession().removeAttribute("erreurCreation");
+        model.addAttribute("test", allPost.get(0));
         model.addAttribute("user", userService.findByEmail(email));
         model.addAttribute("posts", allPost);
         
@@ -108,7 +109,7 @@ public class KittenController {
             return "redirect:/creationCompte";
         }
 
-        else
+      else
         {
             try
             {
@@ -122,7 +123,6 @@ public class KittenController {
                 return "redirect:/creationCompte";
             }
         }
-
 
     }
 
