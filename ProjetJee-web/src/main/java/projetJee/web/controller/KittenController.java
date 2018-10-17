@@ -34,19 +34,18 @@ public class KittenController {
     private PostService postService;
     @Inject
     private CatService catService;
-    @Inject
-    private HttpServletResponse httpServletResponse;
+
 
 
     @RequestMapping(value = "/user/home", method = RequestMethod.GET)
     public String getAllKitties(ModelMap model, HttpServletRequest rq) {
-        final List<Post> allPost = postService.findAll();
+        List<Post> allPost = postService.findAll();
         String email = rq.getSession().getAttribute("userConnecte").toString();
         rq.getSession().removeAttribute("erreurConnexion");
         rq.getSession().removeAttribute("erreurCreation");
         model.addAttribute("user", userService.findByEmail(email));
         model.addAttribute("posts", allPost);
-        httpServletResponse.setHeader("Content-type","text/html;charset=UTF-8");
+        
         return "home";
     }
 
@@ -60,7 +59,6 @@ public class KittenController {
     public String showConnexion(ModelMap model, HttpServletRequest rq) {
         model.addAttribute("user", new User());
         model.addAttribute("erreur",rq.getSession().getAttribute("erreurConnexion"));
-        httpServletResponse.setHeader("Content-type","text/html;charset=UTF-8");
         return "connexion";
     }
 
@@ -86,7 +84,6 @@ public class KittenController {
     @RequestMapping(value = "/user/ajouterPost", method = RequestMethod.GET)
     public String showAddPost(ModelMap model) {
         model.addAttribute("post", new Post());
-        httpServletResponse.setHeader("Content-type","text/html;charset=UTF-8");
         return "ajoutPost";
     }
 
@@ -100,36 +97,53 @@ public class KittenController {
     public String showCreation(ModelMap model,HttpServletRequest rq) {
         model.addAttribute("user", new User());
         model.addAttribute("erreur",rq.getSession().getAttribute("erreurCreation"));
-        httpServletResponse.setHeader("Content-type","text/html;charset=UTF-8");
         return "creerUnCompte";
     }
 
     @RequestMapping(value = "/creationCompte", method = RequestMethod.POST)
     public String addUser(@ModelAttribute("user") User user, HttpServletRequest rq,ModelMap model) {
-        try
-        {
-            userService.saveUser(user);
-            rq.getSession().setAttribute("userConnecte", user.getEmail());
-            return "redirect:/user/home";
-        }
-        catch (javax.persistence.NonUniqueResultException e)
+        if(userService.findByEmail(user.getEmail())!=null)
         {
             rq.getSession().setAttribute("erreurCreation","erreur");
             return "redirect:/creationCompte";
+        }
+
+        else
+        {
+            try
+            {
+                userService.saveUser(user);
+                rq.getSession().setAttribute("userConnecte", user.getEmail());
+                return "redirect:/user/home";
+            }
+            catch (javax.persistence.NonUniqueResultException e)
+            {
+                rq.getSession().setAttribute("erreurCreation","erreur");
+                return "redirect:/creationCompte";
+            }
         }
 
 
     }
 
     @RequestMapping(value = "/user/{id}/choisirUnChat", method = RequestMethod.GET)
-    public String chooseCat(ModelMap model, @PathVariable("id") long id) {
-        final List<Cat> allUserCat = catService.findByUser(userService.findById(id));
-        Cat cat = new Cat();
-        model.addAttribute("newCat", cat);
-        model.addAttribute("userCats", allUserCat);
-        model.addAttribute("user", userService.findById(id));
-        httpServletResponse.setHeader("Content-type","text/html;charset=UTF-8");
-        return "chooseCat";
+    public String chooseCat(ModelMap model, @PathVariable("id") long id, HttpServletRequest rq) {
+        if(rq.getSession().getAttribute("userConnecte").toString().equals(userService.findById(id).getEmail()))
+        {
+            final List<Cat> allUserCat = catService.findByUser(userService.findById(id));
+            Cat cat = new Cat();
+            model.addAttribute("newCat", cat);
+            model.addAttribute("userCats", allUserCat);
+            model.addAttribute("user", userService.findById(id));
+            return "chooseCat";
+
+        }
+        else
+        {
+            LOGGER.warn("essayerez vous de me duper ?!");
+            return "redirect:/user/home";
+        }
+
     }
 
     @RequestMapping(value = "/user/{id}/choisirUnChat", method = RequestMethod.POST)
