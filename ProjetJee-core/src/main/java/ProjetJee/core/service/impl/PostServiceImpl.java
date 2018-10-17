@@ -31,4 +31,8 @@ public class PostServiceImpl implements PostService {
     }
 
     public void savePost(Post post) {  postDAO.save(post); }
+
+    public void saveFavourite(long userId, long catId) {
+        postDAO.saveFavourite(userId, catId);
+    }
 }

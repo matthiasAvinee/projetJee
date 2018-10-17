@@ -16,4 +16,6 @@ public interface PostService {
 
     void savePost(Post post);
 
+    void saveFavourite(long userId, long catId);
+
 }
