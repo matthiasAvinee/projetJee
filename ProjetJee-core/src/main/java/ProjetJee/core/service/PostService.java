@@ -18,4 +18,6 @@ public interface PostService {
 
     void saveFavourite(long userId, long catId);
 
+    List<Post> findByUsersFans (User user);
+
 }

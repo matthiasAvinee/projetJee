@@ -35,4 +35,8 @@ public class PostServiceImpl implements PostService {
     public void saveFavourite(long userId, long catId) {
         postDAO.saveFavourite(userId, catId);
     }
+
+    public List<Post> findByUsersFans(User user) {
+        return postDAO.findByUsersFans(user);
+    }
 }

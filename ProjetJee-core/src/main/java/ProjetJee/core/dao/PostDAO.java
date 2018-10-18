@@ -17,4 +17,5 @@ public interface PostDAO extends JpaRepository<Post, Long> {
     @Query(value = "INSERT INTO projet_jee.favourite (user_id, cat_id) VALUES (?1, ?2)", nativeQuery = true)
     void saveFavourite (long userId, long catId);
 
+    List<Post> findByUsersFans (User user);
 }
