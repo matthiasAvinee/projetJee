@@ -1,6 +1,7 @@
 package ProjetJee.core.service.impl;
 
 import ProjetJee.core.dao.UserDAO;
+import ProjetJee.core.entity.Post;
 import ProjetJee.core.entity.User;
 import ProjetJee.core.security.CryptageMdp;
 import ProjetJee.core.service.UserService;
@@ -51,4 +52,10 @@ public class UserServiceImpl implements UserService {
 
 
     }
+
+    public void addFavorite(Post post, User user) {
+        user.getFavouritesPosts().add(post);
+        userDAO.save(user);
+    }
+
 }
