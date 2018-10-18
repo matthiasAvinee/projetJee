@@ -2,6 +2,7 @@ package ProjetJee.core.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Post {
@@ -18,12 +19,14 @@ public class Post {
 
     private String path;
 
-
     @ManyToOne
     private Cat cat;
 
     @ManyToOne
     private User user;
+
+    @ManyToMany(mappedBy = "favouritesPosts")
+    private List<User> usersFans;
 
     public long getId() {
         return id;
@@ -79,5 +82,13 @@ public class Post {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<User> getUsersFans() {
+        return usersFans;
+    }
+
+    public void setUsersFans(List<User> usersFans) {
+        this.usersFans = usersFans;
     }
 }

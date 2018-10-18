@@ -27,9 +27,9 @@ public class User {
     @JoinTable(
             name = "favourite",
             joinColumns = {@JoinColumn (name = "user_id")},
-            inverseJoinColumns = {@JoinColumn (name = "cat_id")}
+            inverseJoinColumns = {@JoinColumn (name = "post_id")}
     )
-    private List<Cat> favouritesCats;
+    private List<Post> favouritesPosts;
 
     public User() {
     }
@@ -74,11 +74,19 @@ public class User {
         this.cats = cats;
     }
 
-    public List<Cat> getFavouritesCats() {
-        return favouritesCats;
+    public List<Post> getPosts() {
+        return posts;
     }
 
-    public void setFavouritesCats(List<Cat> favouritesCats) {
-        this.favouritesCats = favouritesCats;
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+    public List<Post> getFavouritesPosts() {
+        return favouritesPosts;
+    }
+
+    public void setFavouritesPosts(List<Post> favouritesPosts) {
+        this.favouritesPosts = favouritesPosts;
     }
 }
