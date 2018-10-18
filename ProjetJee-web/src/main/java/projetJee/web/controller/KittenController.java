@@ -7,8 +7,6 @@ import ProjetJee.core.entity.User;
 import ProjetJee.core.service.CatService;
 import ProjetJee.core.service.PostService;
 import ProjetJee.core.service.UserService;
-import javafx.geometry.Pos;
-import org.hibernate.annotations.Filter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
@@ -48,6 +45,17 @@ public class KittenController {
         
         return "home";
     }
+
+    @RequestMapping(value = "/user/favourite", method = RequestMethod.GET)
+    public String getAllFavouriteKitties(ModelMap model, HttpServletRequest rq) {
+        String email = rq.getSession().getAttribute("userConnecte").toString();
+        List<Post> allPost = postService.findByUser(userService.findByEmail(email));
+        model.addAttribute("user", userService.findByEmail(email));
+        model.addAttribute("posts", allPost);
+
+        return "home";
+    }
+
 
     @RequestMapping(value = "/deconnexion", method = RequestMethod.GET)
     public String deconnexion(HttpServletRequest rq) {
@@ -150,5 +158,12 @@ public class KittenController {
         cat.setUser(userService.findById(id));
         catService.saveCat(cat);
         return "redirect:/user/"+id+"/choisirUnChat";
+    }
+
+    @RequestMapping(value = "/addToFavorite&idPost={idPost}&idUser={idUser}", method = RequestMethod.GET)
+    public String addToFavorite(@PathVariable("idPost") long idPost, @PathVariable("idUser") long idUser) {
+        userService.addFavorite(postService.findById(idPost), userService.findById(idUser));
+       // postService.saveFavourite(idUser,idPost);
+        return "redirect:/user/home";
     }
 }

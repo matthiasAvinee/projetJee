@@ -14,6 +14,8 @@ public interface PostService {
 
     List<Post> findByUser(User user);
 
+    Post findById(Long id);
+
     void savePost(Post post);
 
     void saveFavourite(long userId, long catId);

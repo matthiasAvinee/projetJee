@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface PostDAO extends JpaRepository<Post, Long> {
 
+    Post findById(Long id);
+
     List<Post> findByCat(Cat cat);
 
     List<Post> findByUser(User user);

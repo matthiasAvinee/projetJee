@@ -30,6 +30,8 @@ public class PostServiceImpl implements PostService {
         return postDAO.findByUser(user);
     }
 
+    public Post findById(Long id) {return postDAO.findById(id);}
+
     public void savePost(Post post) {  postDAO.save(post); }
 
     public void saveFavourite(long userId, long catId) {

@@ -17,7 +17,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><img class="icons" src="/img/star.png"> Mes Chats préférés</a>
+                <a class="nav-link" href="/user/favourite"><img class="icons" src="/img/star.png"> Mes Posts préférés</a>
             </li>
 
             <li class="nav-item dropdown">
