@@ -9,16 +9,19 @@ import ProjetJee.core.service.PostService;
 import ProjetJee.core.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.repository.query.parser.Part;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +29,8 @@ import java.util.List;
 public class KittenController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(KittenController.class);
+
+    private static final String IMAGE_DIRECTORY_PATH = "C:/kittiesImages";
 
     @Inject
     private UserService userService;
@@ -102,7 +107,17 @@ public class KittenController {
     }
 
     @RequestMapping(value = "/user/{userId}/cat/{catId}/ajouterPost", method = RequestMethod.POST)
-    public String addPost(@ModelAttribute("newPost") Post post, @PathVariable("userId") long userId, @PathVariable("catId") long catId) {
+    public String addPost(@ModelAttribute("newPost") Post post, @PathVariable("userId") long userId, @PathVariable("catId") long catId, @RequestParam("image") MultipartFile picture) {
+        Path picturePath = null;
+        if (!picture.isEmpty()){
+            picturePath = Paths.get(IMAGE_DIRECTORY_PATH, picture.getOriginalFilename());
+            try{
+                Files.copy(picture.getInputStream(),picturePath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        post.setPath(picturePath.toString());
         post.setUser(userService.findById(userId));
         post.setCat(catService.findById(catId));
         post.setDate(new Date());
