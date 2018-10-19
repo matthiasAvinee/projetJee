@@ -17,7 +17,8 @@ public interface UserService {
 
     public boolean checkPasseword(String email, String passewordAttempt);
 
-    void addFavorite (Post post, User user);
+    void
+    addFavorite (Post post, User user);
 
     void deleteFavorite(Post post, User user);
 

@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -91,16 +93,20 @@ public class KittenController {
         return "redirect:connexion";
     }
 
-    @RequestMapping(value = "/user/ajouterPost", method = RequestMethod.GET)
-    public String showAddPost(ModelMap model) {
-        model.addAttribute("post", new Post());
+    @RequestMapping(value = "/user/{userId}/cat/{catId}/ajouterPost", method = RequestMethod.GET)
+    public String showAddPost(ModelMap model, @PathVariable("userId") long userId, @PathVariable("catId") long catId) {
+        Post post = new Post();
+        model.addAttribute("newPost", post);
         return "ajoutPost";
     }
 
-    @RequestMapping(value = "/user/ajouterPost", method = RequestMethod.POST)
-    public String addPost(@ModelAttribute("post") Post post) {
+    @RequestMapping(value = "/user/{userId}/cat/{catId}/ajouterPost", method = RequestMethod.POST)
+    public String addPost(@ModelAttribute("newPost") Post post, @PathVariable("userId") long userId, @PathVariable("catId") long catId) {
+        post.setUser(userService.findById(userId));
+        post.setCat(catService.findById(catId));
+        post.setDate(new Date());
         postService.savePost(post);
-        return "redirect:home";
+        return "redirect:/user/home";
     }
 
     @RequestMapping(value = "/creationCompte", method = RequestMethod.GET)

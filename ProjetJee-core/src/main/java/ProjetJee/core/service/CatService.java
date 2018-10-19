@@ -11,4 +11,6 @@ public interface CatService {
 
     void saveCat(Cat cat);
 
+    Cat findById(long id);
+
 }

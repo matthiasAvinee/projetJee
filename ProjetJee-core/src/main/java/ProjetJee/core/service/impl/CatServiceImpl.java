@@ -24,4 +24,8 @@ public class CatServiceImpl implements CatService {
     public void saveCat(Cat cat) {
         catDAO.save(cat);
     }
+
+    public Cat findById(long id) {
+        return catDAO.findById(id);
+    }
 }

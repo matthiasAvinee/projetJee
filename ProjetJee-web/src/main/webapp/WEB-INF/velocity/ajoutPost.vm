@@ -32,62 +32,28 @@
 </head>
 
     #parse("nav.vm")
+
 <div class="card formulaire">
     <div class="card-header">
-        Ajouter une photo
+        Ajouter un poste
     </div>
     <div class="card-body">
         <div class="row">
             <form action="ajouterPost" method="POST">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="titre">Titre : </label>
-                        <input type="text" class="form-control" id="titre" aria-describedby="titre" placeholder="Titre">
-                        <small id="emailHelp" class="form-text text-muted">Entrez un titre chat.. euh chouette !</small>
-                    </div>
-                    <label for="editor">Description : </label>
-                    <div class="editorContent">
-                        <div id="editor">
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label for="title">Titre</label>
+                    #springFormInput("newPost.title" "class='form-control' id='title' placeholder='Titre'")
                 </div>
-                <div class="col-md-6">
-                    <div class="row">
-                        <label for="tag">Tags : </label>
-                        <select id="tag" name="tag[]" multiple="multiple">
-                            <option value="1">cute</option>
-                            <option value="2">luuuv</option>
-                            <option value="3">kawaiii</option>
-                            <option value="4">cutty</option>
-                        </select>
-                    </div>
-                    <div class="row">
-                        <div class="dropzone" id="myDropzone"></div>
-                    </div>
-
-                    <button type="submit" id="validate" class="btn btn-success">Valider</button>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    #springFormTextarea("newPost.description" "class='form-control' id='description' placeholder='Description'")
                 </div>
+                <button type="submit" class="btn btn-success">Montrer mon chaton mignon !</button>
             </form>
         </div>
     </div>
 </div>
 
-
 #include("footer.vm")
-
-<script>
-    InlineEditor
-            .create(document.querySelector('#editor'))
-            .catch(error = > {
-        console.error(error);
-    } )
-    ;
-
-    var myDropzone = new Dropzone("#myDropzone", {url: "/file/post"});
-
-    $(document).ready(function () {
-        $('#tag').select2();
-    });
-</script>
 </body>
 </html>
