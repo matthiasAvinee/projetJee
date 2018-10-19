@@ -33,7 +33,7 @@
             <form action="choisirUnChat" method="POST">
                 <div class="form-group">
                     <label for="nom">Nom</label>
-                    #springFormInput("newCat.name" "class='form-control' id='nom' placeholder='Nom'")
+                    #springFormInput("newCat.name" "class='form-control' id='nom' placeholder='Nom' required")
                 </div>
                 <button type="submit" class="btn btn-success">Ajouter un chat</button>
             </form>

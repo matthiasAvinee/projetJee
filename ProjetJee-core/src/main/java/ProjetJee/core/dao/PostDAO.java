@@ -20,4 +20,5 @@ public interface PostDAO extends JpaRepository<Post, Long> {
     void saveFavourite (long userId, long catId);
 
     List<Post> findByUsersFans (User user);
+
 }

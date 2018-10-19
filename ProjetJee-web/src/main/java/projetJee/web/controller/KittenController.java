@@ -39,12 +39,13 @@ public class KittenController {
     @RequestMapping(value = "/user/home", method = RequestMethod.GET)
     public String getAllKitties(ModelMap model, HttpServletRequest rq) {
         String email = rq.getSession().getAttribute("userConnecte").toString();
-        List<Post> homePost;
-        List<Post> allPost = postService.findHomePost(userService.findByEmail(email));
+        User userConnected=userService.findByEmail(email);
+        List<Post> allPost = postService.findAll();
+        List<Post> allFavouritePost = postService.findByUsersFans(userConnected);
 
         rq.getSession().removeAttribute("erreurConnexion");
         rq.getSession().removeAttribute("erreurCreation");
-        model.addAttribute("user", userService.findByEmail(email));
+        model.addAttribute("user", userConnected);
         model.addAttribute("posts", allPost);
 
         return "home";
@@ -164,7 +165,10 @@ public class KittenController {
     @RequestMapping(value = "/user/{id}/choisirUnChat", method = RequestMethod.POST)
     public String addCat(@ModelAttribute("newCat") Cat cat, @PathVariable("id") long id) {
         cat.setUser(userService.findById(id));
-        catService.saveCat(cat);
+        if(cat.getName()!=null && cat.getName()!="");
+        {
+            catService.saveCat(cat);
+        }
         return "redirect:/user/"+id+"/choisirUnChat";
     }
 

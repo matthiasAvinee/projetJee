@@ -21,7 +21,7 @@
             #foreach($post in $posts)
                 <div class="card">
                     <a href="/addToFavorite&idPost=$post.id&idUser=$user.id">
-                        <img src="/img/starEmpty.png" class="starIcon"/>
+                        <img src="/img/diskette.png" class="icons"/>
                     </a>
                     <!--<img class="card-img-top" src=".../100px160/" alt="Card image cap">-->
                     <div class="card-body">
