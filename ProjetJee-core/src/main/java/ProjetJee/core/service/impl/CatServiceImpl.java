@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.ArrayList;
 import java.util.List;
 
 @Named
@@ -28,4 +29,19 @@ public class CatServiceImpl implements CatService {
     public Cat findById(long id) {
         return catDAO.findById(id);
     }
+
+    public Boolean isUserCat(User user, Long idCat) {
+        Boolean check=false;
+        List<Cat> lstCat=findByUser(user);
+        for (Cat cat: lstCat) {
+            if(cat.getId()==idCat)
+            {
+                check=true;
+                break;
+            }
+        }
+        return check;
+    }
+
+
 }

@@ -21,11 +21,11 @@
             #foreach($post in $posts)
                 <div class="card">
                     <a href="/addToFavorite&idPost=$post.id&idUser=$user.id">
-                        <img src="/img/diskette.png" class="icons"/>
+                        <img src="/img/diskette.png" class="iconSave"/>
                     </a>
                     <img class="card-img-top" src="/user/picture/$post.id">
                     <div class="card-body">
-                        <h5 class="card-title">$post.title</h5>
+                        <h4 class="card-title">$post.title</h4>
                         <p class="card-text">$post.description</p>
                     </div>
                 </div>
