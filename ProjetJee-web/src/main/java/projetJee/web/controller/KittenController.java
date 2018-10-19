@@ -9,7 +9,6 @@ import ProjetJee.core.service.PostService;
 import ProjetJee.core.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.repository.query.parser.Part;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -55,7 +53,6 @@ public class KittenController {
         String email = rq.getSession().getAttribute("userConnecte").toString();
         User userConnected=userService.findByEmail(email);
         List<Post> allPost = postService.findAll();
-        List<Post> allFavouritePost = postService.findByUsersFans(userConnected);
 
         rq.getSession().removeAttribute("erreurConnexion");
         rq.getSession().removeAttribute("erreurCreation");
@@ -142,7 +139,7 @@ public class KittenController {
     }
 
     @RequestMapping(value = "/creationCompte", method = RequestMethod.POST)
-    public String addUser(@ModelAttribute("user") User user, HttpServletRequest rq,ModelMap model) {
+    public String addUser(@ModelAttribute("user") User user, HttpServletRequest rq) {
         if(userService.findByEmail(user.getEmail())!=null)
         {
             rq.getSession().setAttribute("erreurCreation","erreur");
