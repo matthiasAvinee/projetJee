@@ -177,10 +177,11 @@ public class KittenController {
     @RequestMapping(value = "/user/{id}/choisirUnChat", method = RequestMethod.POST)
     public String addCat(@ModelAttribute("newCat") Cat cat, @PathVariable("id") long id) {
         cat.setUser(userService.findById(id));
-        if(cat.getName()!=null && cat.getName()!="");
+        if(!cat.getName().equals(""))
         {
             catService.saveCat(cat);
         }
+
         return "redirect:/user/"+id+"/choisirUnChat";
     }
 
@@ -200,4 +201,6 @@ public class KittenController {
             }
 
     }
+
+
 }
