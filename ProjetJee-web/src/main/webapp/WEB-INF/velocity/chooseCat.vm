@@ -23,7 +23,7 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">$cat.name</h5>
-                <button href="$cat.id/ajouterPost" class="btn">Choose</button>
+                <a href="/user/$user.id/cat/$cat.id/ajouterPost"><button class="btn">Choose</button></a>
             </div>
         </div>
     #end

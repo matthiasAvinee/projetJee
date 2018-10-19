@@ -10,4 +10,6 @@ public interface CatDAO extends JpaRepository<Cat, Long> {
 
     List<Cat> findByUser(User user);
 
+    Cat findById(long id);
+
 }
