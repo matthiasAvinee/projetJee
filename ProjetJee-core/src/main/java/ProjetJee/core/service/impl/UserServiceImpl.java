@@ -5,6 +5,8 @@ import ProjetJee.core.entity.Post;
 import ProjetJee.core.entity.User;
 import ProjetJee.core.security.CryptageMdp;
 import ProjetJee.core.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -55,6 +57,20 @@ public class UserServiceImpl implements UserService {
 
     public void addFavorite(Post post, User user) {
         user.getFavouritesPosts().add(post);
+        userDAO.save(user);
+    }
+
+    public void deleteFavorite(Post post, User user) {
+        List<Post> lst =user.getFavouritesPosts();
+        for(int i=0;i<lst.size();i++)
+        {
+            if(lst.get(i).getId()==post.getId())
+            {
+                user.getFavouritesPosts().remove(i);
+                break;
+            }
+        }
+
         userDAO.save(user);
     }
 

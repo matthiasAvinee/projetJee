@@ -36,20 +36,22 @@ public class KittenController {
 
     @RequestMapping(value = "/user/home", method = RequestMethod.GET)
     public String getAllKitties(ModelMap model, HttpServletRequest rq) {
-        List<Post> allPost = postService.findAll();
         String email = rq.getSession().getAttribute("userConnecte").toString();
+        List<Post> homePost;
+        List<Post> allPost = postService.findHomePost(userService.findByEmail(email));
+
         rq.getSession().removeAttribute("erreurConnexion");
         rq.getSession().removeAttribute("erreurCreation");
         model.addAttribute("user", userService.findByEmail(email));
         model.addAttribute("posts", allPost);
-        
+
         return "home";
     }
 
     @RequestMapping(value = "/user/favourite", method = RequestMethod.GET)
     public String getAllFavouriteKitties(ModelMap model, HttpServletRequest rq) {
         String email = rq.getSession().getAttribute("userConnecte").toString();
-        List<Post> allPost = postService.findByUser(userService.findByEmail(email));
+        List<Post> allPost = postService.findByUsersFans(userService.findByEmail(email));
         model.addAttribute("user", userService.findByEmail(email));
         model.addAttribute("posts", allPost);
 
@@ -162,8 +164,18 @@ public class KittenController {
 
     @RequestMapping(value = "/addToFavorite&idPost={idPost}&idUser={idUser}", method = RequestMethod.GET)
     public String addToFavorite(@PathVariable("idPost") long idPost, @PathVariable("idUser") long idUser) {
-        userService.addFavorite(postService.findById(idPost), userService.findById(idUser));
-       // postService.saveFavourite(idUser,idPost);
-        return "redirect:/user/home";
+            try
+            {
+                userService.addFavorite(postService.findById(idPost), userService.findById(idUser));
+                LOGGER.info("new favorite post add");
+                return "redirect:/user/home";
+            }
+            catch (java.lang.IllegalStateException e)
+            {
+                userService.deleteFavorite(postService.findById(idPost), userService.findById(idUser));
+                LOGGER.info("new favorite post delete");
+                return "redirect:/user/home";
+            }
+
     }
 }

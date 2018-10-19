@@ -19,4 +19,6 @@ public interface UserService {
 
     void addFavorite (Post post, User user);
 
+    void deleteFavorite(Post post, User user);
+
 }

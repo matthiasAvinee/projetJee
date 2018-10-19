@@ -41,4 +41,23 @@ public class PostServiceImpl implements PostService {
     public List<Post> findByUsersFans(User user) {
         return postDAO.findByUsersFans(user);
     }
+
+    public List<Post> findHomePost(User user) {
+        List<Post> listeTotale=this.findAll();
+        List<Post> listFav=this.findByUsersFans(user);
+
+        for(int i=0;i<listeTotale.size();i++)
+        {
+            for(int j=0;j<listFav.size();i++)
+            {
+                if(listeTotale.get(i).getId()==listFav.get(j).getId())
+                {
+                    listeTotale.remove(i);
+                }
+            }
+        }
+        return listeTotale;
+
+    }
+
 }
