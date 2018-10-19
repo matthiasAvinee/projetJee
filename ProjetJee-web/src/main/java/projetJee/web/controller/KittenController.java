@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.List;
 
@@ -41,7 +40,6 @@ public class KittenController {
         String email = rq.getSession().getAttribute("userConnecte").toString();
         User userConnected=userService.findByEmail(email);
         List<Post> allPost = postService.findAll();
-        List<Post> allFavouritePost = postService.findByUsersFans(userConnected);
 
         rq.getSession().removeAttribute("erreurConnexion");
         rq.getSession().removeAttribute("erreurCreation");
@@ -118,7 +116,7 @@ public class KittenController {
     }
 
     @RequestMapping(value = "/creationCompte", method = RequestMethod.POST)
-    public String addUser(@ModelAttribute("user") User user, HttpServletRequest rq,ModelMap model) {
+    public String addUser(@ModelAttribute("user") User user, HttpServletRequest rq) {
         if(userService.findByEmail(user.getEmail())!=null)
         {
             rq.getSession().setAttribute("erreurCreation","erreur");
