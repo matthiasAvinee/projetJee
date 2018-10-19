@@ -18,6 +18,8 @@
 <body>
     #parse("nav.vm")
 
+    <h2 class="text-center mt-3"> Commencez par choisir un chat !</h2>
+
     <div class="card-columns">
         #foreach($cat in $userCats)
             <div class="card">
