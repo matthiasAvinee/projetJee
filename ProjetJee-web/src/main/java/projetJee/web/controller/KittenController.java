@@ -37,7 +37,16 @@ public class KittenController {
     @Inject
     private CatService catService;
 
-
+    @RequestMapping(value = "/user/picture/{postId}", method = RequestMethod.GET)
+    public void displayPicture(@PathVariable("postId") long postId, HttpServletResponse response){
+        Path path = Paths.get(postService.findById(postId).getPath());
+        response.setContentType("image/jpeg");
+        try {
+            Files.copy(path, response.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @RequestMapping(value = "/user/home", method = RequestMethod.GET)
     public String getAllKitties(ModelMap model, HttpServletRequest rq) {

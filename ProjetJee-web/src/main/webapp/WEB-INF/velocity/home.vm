@@ -23,7 +23,7 @@
                     <a href="/addToFavorite&idPost=$post.id&idUser=$user.id">
                         <img src="/img/diskette.png" class="icons"/>
                     </a>
-                    <img class="card-img-top" src="$post.path">
+                    <img class="card-img-top" src="/user/picture/$post.id">
                     <div class="card-body">
                         <h5 class="card-title">$post.title</h5>
                         <p class="card-text">$post.description</p>
