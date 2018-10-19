@@ -13,4 +13,6 @@ public interface CatService {
 
     Cat findById(long id);
 
+    Boolean isUserCat(User user, Long idCat);
+
 }

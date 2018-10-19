@@ -107,10 +107,21 @@ public class KittenController {
     }
 
     @RequestMapping(value = "/user/{userId}/cat/{catId}/ajouterPost", method = RequestMethod.GET)
-    public String showAddPost(ModelMap model, @PathVariable("userId") long userId, @PathVariable("catId") long catId) {
+    public String showAddPost(ModelMap model, @PathVariable("userId") long userId, @PathVariable("catId") long catId,HttpServletRequest rq) {
         Post post = new Post();
-        model.addAttribute("newPost", post);
-        return "ajoutPost";
+        User userconnected=userService.findById(userId);
+
+        if(rq.getSession().getAttribute("userConnecte").toString().equals(userconnected.getEmail())&&catService.isUserCat(userconnected,catId))
+        {
+            model.addAttribute("user",userconnected);
+            model.addAttribute("newPost", post);
+            return "ajoutPost";
+        }
+        else
+        {
+            LOGGER.warn("essayerez vous de nous duper ?!");
+            return "redirect:/user/home";
+        }
     }
 
     @RequestMapping(value = "/user/{userId}/cat/{catId}/ajouterPost", method = RequestMethod.POST)
@@ -178,7 +189,7 @@ public class KittenController {
         }
         else
         {
-            LOGGER.warn("essayerez vous de me duper ?!");
+            LOGGER.warn("essayerez vous de nous duper ?!");
             return "redirect:/user/home";
         }
 

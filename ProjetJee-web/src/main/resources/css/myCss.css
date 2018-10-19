@@ -17,6 +17,16 @@ body{
 li{
 	font-size: 20px
 }
+
+.addPostForm{
+	width: 80%;
+	margin-left: 10%;
+}
+
+#btnPostForm{
+	margin-left: 80%;
+}
+
 .mainIcons{
 
 	margin-left: 15px;
